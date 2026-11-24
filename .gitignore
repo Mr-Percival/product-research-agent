@@ -1,0 +1,9 @@
+.venv/
+data/
+.env
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+decisiones.md

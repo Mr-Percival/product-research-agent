@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pra"
+version = "0.1.0.dev0"
+description = "Product research agent + MCP server: embedding retrieval, MMR re-ranking and review feature mining, evaluated on Amazon ESCI"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+authors = [{ name = "Nicolas Meza Ortega" }]
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "pyarrow>=15",
+  "rank-bm25>=0.2.2",
+  "sentence-transformers>=3.0",
+  "transformers>=4.40",
+  "pydantic>=2.7",
+  "anthropic>=0.40",
+  "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "jupyter", "nbconvert", "ipykernel", "tabulate"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pra"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["notebooks"]  # exploratory; the generator script is linted instead
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/build_notebook.py" = ["E501"]
+"scripts/build_label_tool.py" = ["E501"]  # embedded HTML/JS template
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
